@@ -1,0 +1,41 @@
+create table students
+(
+S_ID int not null primary key,
+S_fNAME varchar(255) not null,
+S_lNAME varchar(255) not null,
+AGE int default 22 ,
+S_CITY varchar(255),
+S_PCode int ,
+);
+
+INSERT INTO STUDENTs VALUES
+('101','NIRBHAY','KUMAR','20','MOTIHARI','84548'),
+('102','DEEPAK','YADAV','23','SITAMADHI','845418'),
+('103','SUBHAY','KUMAR','24','GORKHPUR','875838'),
+('104','AMIT','KUMAR','','MOTIPUR','324565'),
+('105','SATYA','YADAV','29','SEUHAR','123243'),
+('106','NIRBHAY','KUMAR','25','PATNA','879532'),
+('107','NITYA','YADAV','20','PATNA','905733'),
+('108','ANKIT','KUMAR','25','RACHI','95732'),
+('109','PRITAM','YADAV','','MOTIHARI','89457'),
+('110','NIRBHAY','KUMAR','24','PATNA','457459');
+CREATE TABLE COURSE
+(
+C_ID INT  PRIMARY KEY,
+C_NAME VARCHAR(255) NOT NULL,
+C_FEE INT ,
+C_DURATION CHAR(30),
+S_ID INT FOREIGN KEY REFERENCES STUDENTS(S_ID)
+);
+INSERT INTO COURSE VALUES
+('1','BCA','12000','3 YEAR','101'),
+('2','MCA','15000','2 YEAR','102'),
+('3','B.TECH','50000','4 YEAR','103'),
+('4','MCA','15000','2 YEAR','104'),
+('5','MBA','20000','2 YEAR','105'),
+('6','MCA','15000','2 YEAR','106'),
+('7','BCA','12000','3 YEAR','107');
+
+select * from students
+select * from COURSE
+
