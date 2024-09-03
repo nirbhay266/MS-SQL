@@ -1127,3 +1127,49 @@ VALUES
     ('Legal', 'Philadelphia'),
     ('Operations', 'San Diego'),
     ('Engineering', 'Austin');
+
+	SELECT * 
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'dbo';
+
+SELECT * 
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE';
+
+select * from Student
+
+select * from students
+select age,s_fname from students where AGE >some(select AGE from students where AGE>24)
+
+select * from student
+select * from StudentDetail
+select * from Student_Marks
+select * from course
+
+
+
+WITH sat AS (
+    SELECT s1.StudentID, s1.Firstname, s1.lastname, s1.Gender, s2.City, s2.State, s2.Country 
+    FROM Student s1
+    JOIN StudentDetail s2 ON s1.StudentID = s2.DetailID
+),
+sa AS (
+    SELECT c.C_ID, c.C_name, c.C_Fee, s.EnglishMarks, s.mathmarks, s.scienceMarks, s.StudentID
+    FROM Student_Marks s
+    JOIN COURSE c ON s.StudentID = c.S_ID
+)
+SELECT 
+    sat.StudentID, 
+    sat.Firstname, 
+    sat.lastname, 
+    sat.Gender, 
+    sat.City, 
+    sat.State, 
+    sat.Country,
+    sa.C_name,
+    sa.C_Fee,
+    sa.EnglishMarks,
+    sa.mathmarks,
+    sa.scienceMarks
+FROM sat
+JOIN sa ON sat.StudentID = sa.StudentID;

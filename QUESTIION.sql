@@ -13,13 +13,8 @@ select top 1 salary from
 order by Salary desc)kl
 order by salary
 ---------------------------3rd----------------------------------
-with highest as
-(
-select salary, dense_rank() over
-(order by  salary) as dense from employees
-) select salary 
-from highest
-where highest.dense =11
+
+
 
 
 with sah as
@@ -264,13 +259,13 @@ HAVING COUNT(ProductName)>1
 		select * from ram where r>1
 --11.Write a SQL query to print all Student details from Student table order by FIRST_NAME Ascending and MAJOR Subject descending .
 select * from Employees order by FirstName,LastName desc
---12. Write a SQL query to print details of the Students with the FIRST_NAME as ‘Prem’ and ‘Shivansh’ from Student table.
+--12. Write a SQL query to print details of the Students with the FIRST_NAME as ï¿½Premï¿½ and ï¿½Shivanshï¿½ from Student table.
 select * from students where s_fname in('nirbhay','deepak')
---13. Write a SQL query to print details of the Students excluding FIRST_NAME as ‘Prem’ and ‘Shivansh’ from Student table.
+--13. Write a SQL query to print details of the Students excluding FIRST_NAME as ï¿½Premï¿½ and ï¿½Shivanshï¿½ from Student table.
 select * from Students where s_fname not in ('nirbhay','deepak')
---14. Write a SQL query to print details of the Students whose FIRST_NAME ends with ‘a’.
+--14. Write a SQL query to print details of the Students whose FIRST_NAME ends with ï¿½aï¿½.
 select * from student where s_fname like 'a%'
---15 Write an SQL query to print details of the Students whose FIRST_NAME ends with ‘a’ and contains six alphabets.
+--15 Write an SQL query to print details of the Students whose FIRST_NAME ends with ï¿½aï¿½ and contains six alphabets.
 select * from students where s_fname like '_____A%'
 --16. Write an SQL query to print details of the Students whose GPA lies between 9.00 and 9.99.
 select * from students where age between 20 and 25
@@ -286,6 +281,98 @@ select firstname+' '+lastNAME,m.Marks_eng,m.Marks_math,m.Marks_science
 from student s
 inner join StudentMarks m on s.StudentID=m.MarkID
 inner join StudentDetail d on s.StudentID=d.DetailID
+--19.  Write an SQL query to show only odd rows from Student table.
+select * from student where StudentID%2!=0
+--20. Write an SQL query to determine the nth (say n=5) highest GPA from a table.
+select * from Students
+order by S_ID desc
+offset 1 rows
+fetch nextï¿½1ï¿½rowsï¿½only
+--21.HOW TO FIND FIRST ROW AND LAST ROW--
+SELECT * FROM Student WHERE STUDENTID = (SELECT MAX(STUDENTID) FROM STUDENT);
+SELECT * FROM Student WHERE STUDENTID = (SELECT min(STUDENTID) FROM STUDENT);
+----------------------------------------------------------------------------------
+SELECT COUNT(FIRSTNAME) FROM Emp
+GROUP BY FIRSTNAME,LASTNAME
+HAVING COUNT(*)>1
+---------------------------------------------------------------------------------
+WITH HM AS
+(
+	SELECT FIRSTNAME,LASTNAME,
+		ROW_NUMBER() OVER(PARTITION BY FIRSTNAME,LASTNAME ORDER BY EMPLOYEEID ) AS 'DUPLICATE' FROM Emp
+	)
+	SELECT * FROM HM WHERE DUPLICATE>1
+----------------------------------------------------------------------------------
+WITH HRAMI AS
+(
+	SELECT FIRSTNAME,LASTNAME,
+		ROW_NUMBER() OVER(PARTITION BY FIRSTNAME,LASTNAME ORDER BY EMPLOYEEID)AS 'DUPLI' FROM Emp
+)
+DELETE FROM HRAMI WHERE DUPLI>1
+-------------------------------------------------------------------------------------
+SELECT MAX(SALARY) FROM Emp WHERE SALARY<(SELECT MAX(SALARY) FROM EmP)
+SELECT MAX(SALARY) FROM Emp WHERE SALARY<(SELECT MAX(SALARY) FROM EmP WHERE SALARY<(SELECT MAX(SALARY) FROM EMP))
+-------------------------------------------------------------------------------------
+with highest
+as(
+	select salary,
+		DENSE_RANK() over(Order by salary) as d from Employee
+	)
+	select salary from highest where highest.d=1
+
+-----------------------------------------------------------------	
+--Write a query to display the each department emp avg salary whose avg salary is notï¿½lessï¿½thanï¿½50000
+select * from Department
+select * from Employee
+
+select d.Departmentname,AVG(salary) as 'Average Salary'
+from Employee e
+join Department d on e.EmployeeID=d.DepartmentID
+group by d.DepartmentName
+having AVG(salary)>50000
+---------------------------------------------------------------------
+
+select COUNT(*) from sti
+group by c_id
+having COUNT(*)>1
+-----------------------------------
+with nir as
+(
+select * ,
+	dense_rank() over(partition by c_name order by c_id) as y from sti
+)
+select * from nir where y>1
+--------------------------------------
+select * from pizzas
+with pizz as
+(
+select *,
+DENSE_RANK() over (PARTITION by pizza_id order by pizza_id)as t from pizzas
+)
+select * from  PIZZ where t>1
+
+-------------------------------------
+with ras as 
+(
+select *,
+dense_rank() over (partition by c_name order by c_id) as s from sti
+)
+delete from ras where s>1
+
+
+
+
+
+select * from Employees
+select * from sti
+
+
+
+
+
+
+
+
 
 
 

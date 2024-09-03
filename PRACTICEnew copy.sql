@@ -145,3 +145,66 @@ order by S_ID
 offset 1 rows
 fetch next 1 rows only
 -----------------------------------------------------------
+
+--alter view--
+create view sati as
+select * from Employees where EmployeeID<5
+
+select * from sati
+
+CREATE OR ALTER VIEW sati AS
+SELECT employeeid, firstname, salary, department
+FROM Employees;
+
+INSERT INTO sati (employeeid, firstname,Salary,Department)
+VALUES ( 'Aman Verma',40000,'IT');
+
+CREATE PROC DD
+@EMPLOYEEID INT
+AS
+BEGIN
+SELECT * FROM Employees WHERE EmployeeID=@EMPLOYEEID
+END
+
+DD 1
+select * from Department
+
+--------------------------------------------------------------------------------
+select * from Employees
+declare @employeeid int
+declare @firstname varchar(100)
+declare @lastname varchar(100)
+declare @gender varchar(100)
+declare @department varchar(100)
+
+declare st cursor for select employeeid,firstname,lastname,gender,department from Employees
+
+open st
+
+fetch next from st into  @employeeid,@firstname,@lastname,@gender,@department 
+
+while @@FETCH_STATUS=0
+begin
+	print concat('Employee id ',@employeeid)
+	print concat('Employee Firstname ',@firstname)
+	print concat('Employee lastname ',@lastname)
+	print concat('Employee gender ',@gender)
+	print concat('Employee department ',@department)
+
+print '======================================================================='
+end
+fetch next from st into  @employeeid,@firstname,@lastname,@gender,@department 
+ close st
+Deallocate st
+
+
+
+--------------------------------------------------------------------------------------------------------
+create index yadav
+on employees (firstname,gender,department)
+
+
+
+
+
+
